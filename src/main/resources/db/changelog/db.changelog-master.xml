@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="azeem-1" author="azeem">
+        <createTable tableName="courses">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+                <!-- Using BIGSERIAL for auto-increment -->
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="course_code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="azeem-2" author="azeem">
+        <createTable tableName="course_instances">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+                <!-- Using BIGSERIAL for auto-increment -->
+            </column>
+            <column name="course_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="year" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="semester" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="azeem-3" author="azeem">
+        <addForeignKeyConstraint
+                baseTableName="course_instances"
+                baseColumnNames="course_id"
+                referencedTableName="courses"
+                referencedColumnNames="id"
+                constraintName="fk_course_instance_course"/>
+    </changeSet>
+
+</databaseChangeLog>
